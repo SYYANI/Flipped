@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyAppTheme.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/teal_700</item>
+    </style>
+    <style name="MySnackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:layout_margin">20dp</item>
+    </style>
+    <!-- 默认水平分割线样式 -->
+    <style name="HorizontalLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/white_40</item>
+    </style>
+
+    <style name="PulsePlot">
+        <item name="graphMarginTop">0dp</item>
+        <item name="graphMarginBottom">0dp</item>
+        <item name="graphMarginLeft">0dp</item>
+        <item name="graphMarginRight">0dp</item>
+        <item name="graphHeightMode">fill</item>
+        <item name="graphWidthMode">fill</item>
+        <item name="graphHeight">0</item>
+        <item name="graphWidth">0</item>
+        <item name="domainLineThickness">1dp</item>
+        <item name="graphHorizontalPositioning">absolute_from_left</item>
+        <item name="graphVerticalPositioning">absolute_from_top</item>
+        <item name="rangeLineThickness">1dp</item>
+        <item name="graphAnchor">left_top</item>
+        <item name="graphHorizontalPosition">0dp</item>
+        <item name="graphVerticalPosition">0dp</item>
+        <item name="legendVisible">false</item>
+        <item name="domainLineColor">@color/off_white</item>
+        <item name="rangeLineColor">@color/off_white</item>
+        <item name="backgroundColor">@color/off_white</item>
+        <item name="gridBackgroundColor">@color/off_white</item>
+        <item name="borderColor">@color/off_white</item>
+    </style>
+
+    <!-- 圆形图片 -->
+    <style name="circleImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- 圆角图片 -->
+    <style name="roundedImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15dp</item>
+    </style>
+</resources>

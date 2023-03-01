@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shu.dao.RecordMapper">
+  <resultMap id="BaseResultMap" type="cn.shu.dataobject.Record">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="patient_id" jdbcType="INTEGER" property="patientId" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctorId" />
+    <result column="disease_id" jdbcType="INTEGER" property="diseaseId" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+  </resultMap>
+  <resultMap id="RecordDetailMap" type="cn.shu.dataobject.RecordDetail">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="patient_id" jdbcType="INTEGER" property="patientId" />
+    <result column="patient_name" jdbcType="VARCHAR" property="patientName" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctorId" />
+    <result column="doctor_name" jdbcType="VARCHAR" property="doctorName" />
+    <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName" />
+    <result column="disease_id" jdbcType="INTEGER" property="diseaseId" />
+    <result column="disease_name" jdbcType="VARCHAR" property="diseaseName" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_id, create_date, update_date, patient_id, doctor_id, disease_id, detail
+  </sql>
+  <sql id="Record_Detail_List">
+    record.record_id, create_date, update_date, record.patient_id, record.doctor_id, record.disease_id, patient_name, doctor_name, disease_name, record.detail, hospital_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="cn.shu.dataobject.Record">
+    insert into record (record_id, create_date, update_date, 
+      patient_id, doctor_id, disease_id, 
+      detail)
+    values (#{recordId,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{patientId,jdbcType=INTEGER}, #{doctorId,jdbcType=INTEGER}, #{diseaseId,jdbcType=INTEGER}, 
+      #{detail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.shu.dataobject.Record">
+    insert into record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="patientId != null">
+        patient_id,
+      </if>
+      <if test="doctorId != null">
+        doctor_id,
+      </if>
+      <if test="diseaseId != null">
+        disease_id,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=INTEGER},
+      </if>
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="diseaseId != null">
+        #{diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.shu.dataobject.Record">
+    update record
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patientId != null">
+        patient_id = #{patientId,jdbcType=INTEGER},
+      </if>
+      <if test="doctorId != null">
+        doctor_id = #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="diseaseId != null">
+        disease_id = #{diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.shu.dataobject.Record">
+    update record
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      patient_id = #{patientId,jdbcType=INTEGER},
+      doctor_id = #{doctorId,jdbcType=INTEGER},
+      disease_id = #{diseaseId,jdbcType=INTEGER},
+      detail = #{detail,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <select id="getRecordList" resultMap="RecordDetailMap">
+    select
+    <include refid="Record_Detail_List" />
+    from record, patient, doctor, disease, hospital where doctor.hospital_id = hospital.hospital_id and record.patient_id = patient.patient_id and record.doctor_id = doctor.doctor_id and record.disease_id =disease.disease_id
+    order by create_date DESC;
+  </select>
+  <select id="getRecordListByPatientId"  parameterType="java.lang.Integer" resultMap="RecordDetailMap">
+    select
+    <include refid="Record_Detail_List" />
+    from record, patient, doctor, disease, hospital where doctor.hospital_id = hospital.hospital_id and record.patient_id = patient.patient_id and record.doctor_id = doctor.doctor_id and record.disease_id =disease.disease_id and patient.patient_id = #{patientId,jdbcType=INTEGER}
+    order by create_date DESC;
+  </select>
+  <select id="getRecordListByDoctorId"  parameterType="java.lang.Integer" resultMap="RecordDetailMap">
+    select
+    <include refid="Record_Detail_List" />
+    from record, patient, doctor, disease, hospital where doctor.hospital_id = hospital.hospital_id and record.patient_id = patient.patient_id and record.doctor_id = doctor.doctor_id and record.disease_id =disease.disease_id and doctor.doctor_id = #{doctorId,jdbcType=INTEGER}
+    order by create_date DESC;
+  </select>
+  <select id="getRecordDetail" parameterType="java.lang.Integer"  resultMap="RecordDetailMap">
+    select
+    <include refid="Record_Detail_List" />
+    from record, patient, doctor, disease, hospital where doctor.hospital_id = hospital.hospital_id and record.patient_id = patient.patient_id and record.doctor_id = doctor.doctor_id and record.disease_id =disease.disease_id and record.record_id = #{recordId,jdbcType=INTEGER};
+  </select>
+  <select id="getLeastRecordListByPatientId"  parameterType="java.lang.Integer" resultMap="RecordDetailMap">
+    select
+    <include refid="Record_Detail_List" />
+    from record, patient, doctor, disease, hospital where doctor.hospital_id = hospital.hospital_id and record.patient_id = patient.patient_id and record.doctor_id = doctor.doctor_id and record.disease_id =disease.disease_id and patient.patient_id = #{patientId,jdbcType=INTEGER}
+    order by update_date ASC limit 1;
+  </select>
+</mapper>

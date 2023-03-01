@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/patientFragment">
+
+    <fragment
+        android:id="@+id/patientFragment"
+        android:name="cn.shu.heartsound.fragment.PatientFragment"
+        android:label="主页"
+        tools:layout="@layout/patient_fragment" />
+    <fragment
+        android:id="@+id/selfFragment"
+        android:name="cn.shu.heartsound.fragment.SelfFragment"
+        android:label="个人信息"
+        tools:layout="@layout/self_fragment" />
+    <fragment
+        android:id="@+id/patientHistoryFragment"
+        android:name="cn.shu.heartsound.fragment.PatientHistoryFragment"
+        android:label="诊断历史"
+        tools:layout="@layout/patient_history_fragment" />
+
+</navigation>

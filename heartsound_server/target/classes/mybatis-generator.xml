@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--数据库连接-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!--注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!--数据库连接地址及账号密码-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://101.35.20.64:3306/heartsound"
+                        userId="root"
+                        password="Nokia5233xm!">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!--生成DataObject类存放位置-->
+        <javaModelGenerator targetPackage="cn.shu.dataobject" targetProject="src/main/java">
+            <!--是否对model添加构造函数-->
+            <property name="constructorBased" value="false"/>
+            <!--是否允许子包-->
+            <property name="enableSubPackages" value="true"/>
+            <!--建立的model对象是否不可变，也就是生成的model没有setter方法-->
+            <property name="immutable" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mapping"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--生成Dao类的存放位置-->
+        <!-- 客户端代码,生成易于使用的正对Model对象和XML配置文件的代码
+        type="ANNOTATEDMAPPER", 生成Java Model和基于注解的Mapper对象
+        type="MIXEDMAPPER", 生成基于注解的Java Model和相应的Mapper对象
+        type="XMLMAPPER", 生成SQLMap XML文件和独立的Mapper接口
+        -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.shu.dao"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--生成对应表及类名-->
+        <!--<table schema="mybatis" tableName="user_info" domainObjectName="UserDO"
+                enableInsert="true" enableSelectByExample="false"
+                enableDeleteByPrimaryKey="false" enableDeleteByExample="false"
+                enableCountByExample="false" enableUpdateByExample="false"
+                enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>-->
+<!--        <table tableName="user" domainObjectName="User" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" selectByExampleQueryId="false"-->
+<!--               enableInsert="true" enableDeleteByPrimaryKey="false" ></table>-->
+<!--        <table tableName="record" domainObjectName="Record" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" selectByExampleQueryId="false"-->
+<!--               enableInsert="true" enableDeleteByPrimaryKey="false" ></table>-->
+<!--        <table tableName="patient" domainObjectName="Patient" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" selectByExampleQueryId="false"-->
+<!--               enableInsert="true" enableDeleteByPrimaryKey="false" ></table>-->
+<!--        <table tableName="hospital" domainObjectName="Hospital" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" selectByExampleQueryId="false"-->
+<!--               enableInsert="true" enableDeleteByPrimaryKey="false" ></table>-->
+<!--        <table tableName="file" domainObjectName="File" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" selectByExampleQueryId="false"-->
+<!--               enableInsert="true" enableDeleteByPrimaryKey="false" ></table>-->
+<!--        <table tableName="doctor" domainObjectName="Doctor" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" selectByExampleQueryId="false"-->
+<!--               enableInsert="true" enableDeleteByPrimaryKey="false" ></table>-->
+<!--        <table tableName="disease" domainObjectName="Disease" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" selectByExampleQueryId="false"-->
+<!--               enableInsert="true" enableDeleteByPrimaryKey="false" ></table>-->
+<!--        <table tableName="medicine" domainObjectName="Medicine" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false" selectByExampleQueryId="false"-->
+<!--               enableInsert="true" enableDeleteByPrimaryKey="false" ></table>-->
+
+    </context>
+
+</generatorConfiguration>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".activity.JudgeActivity">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="30sp"></TextView>
+
+            <TextView
+                android:id="@+id/activity_judge_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="智能诊断已就绪"
+                android:textColor="@color/white"
+                android:textSize="24sp"></TextView>
+        </LinearLayout>
+
+        <VideoView
+            android:id="@+id/activity_judge_heart_rate_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"></VideoView>
+
+        <cn.shu.heartsound.customview.WaveLineView
+            android:id="@+id/waveLineView"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:wlvBackgroundColor="@color/transparent"
+            app:wlvLineColor="@color/red"
+            app:wlvMoveSpeed="290"
+            app:wlvSensibility="9"
+            app:layout_constraintTop_toBottomOf="@id/activity_judge_heart_rate_video"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/register_record_btn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/recorder_btn"
+            android:text="长按开始"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/waveLineView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shu.dao.PatientMapper">
+  <resultMap id="BaseResultMap" type="cn.shu.dataobject.Patient">
+    <id column="patient_id" jdbcType="INTEGER" property="patientId" />
+    <result column="patient_name" jdbcType="VARCHAR" property="patientName" />
+    <result column="relation_name" jdbcType="VARCHAR" property="relationName" />
+    <result column="relation_tel" jdbcType="VARCHAR" property="relationTel" />
+  </resultMap>
+  <resultMap id="PatientDetailMap" type="cn.shu.dataobject.PatientDetail">
+    <id column="patient_id" jdbcType="INTEGER" property="patientId" />
+    <result column="patient_name" jdbcType="VARCHAR" property="patientName" />
+    <result column="relation_name" jdbcType="VARCHAR" property="relationName" />
+    <result column="relation_tel" jdbcType="VARCHAR" property="relationTel" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="hospital_id" jdbcType="INTEGER" property="hospitalId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    patient_id, patient_name, relation_name, relation_tel
+  </sql>
+  <sql id="Patient_Column_List">
+    patient.patient_id, patient.patient_name, patient.relation_name, patient.relation_tel, user.photo, hospital.hospital_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from patient
+    where patient_id = #{patientId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="cn.shu.dataobject.Patient">
+    insert into patient (patient_id, patient_name, relation_name, 
+      relation_tel)
+    values (#{patientId,jdbcType=INTEGER}, #{patientName,jdbcType=VARCHAR}, #{relationName,jdbcType=VARCHAR}, 
+      #{relationTel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.shu.dataobject.Patient">
+    insert into patient
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="patientId != null">
+        patient_id,
+      </if>
+      <if test="patientName != null">
+        patient_name,
+      </if>
+      <if test="relationName != null">
+        relation_name,
+      </if>
+      <if test="relationTel != null">
+        relation_tel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="patientId != null">
+        #{patientId,jdbcType=INTEGER},
+      </if>
+      <if test="patientName != null">
+        #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="relationName != null">
+        #{relationName,jdbcType=VARCHAR},
+      </if>
+      <if test="relationTel != null">
+        #{relationTel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.shu.dataobject.Patient">
+    update patient
+    <set>
+      <if test="patientName != null">
+        patient_name = #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="relationName != null">
+        relation_name = #{relationName,jdbcType=VARCHAR},
+      </if>
+      <if test="relationTel != null">
+        relation_tel = #{relationTel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where patient_id = #{patientId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.shu.dataobject.Patient">
+    update patient
+    set patient_name = #{patientName,jdbcType=VARCHAR},
+      relation_name = #{relationName,jdbcType=VARCHAR},
+      relation_tel = #{relationTel,jdbcType=VARCHAR}
+    where patient_id = #{patientId,jdbcType=INTEGER}
+  </update>
+  <select id="getPatientList" resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from patient order by patient_id ASC;
+
+  </select>
+
+  <select id="selectByPatientId" parameterType="java.lang.Integer" resultMap="PatientDetailMap">
+    select
+    <include refid="Patient_Column_List" />
+    from patient, user, record, hospital, doctor
+    where record.doctor_id = doctor.doctor_id and doctor.hospital_id = hospital.hospital_id and patient.patient_id = record.patient_id and patient.patient_id = user.user_id
+    and patient.patient_id = #{patientId,jdbcType=INTEGER}
+    limit 1;
+  </select>
+
+  <select id="getPatientByDoctorId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+      patient.patient_id, patient_name, relation_name, relation_tel
+    from patient
+    where patient.patient_id in(select patient_id from record where doctor_id = #{doctorId,jdbcType=INTEGER} group by patient_id);
+  </select>
+</mapper>

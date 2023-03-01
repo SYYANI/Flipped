@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purplt_50">#FFF8F8FF</color>
+    <color name="purplt_100">#FFF6F6FF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_5">#FFF2F2F2</color>
+    <color name="white_10">#FFE6E6E6</color>
+    <color name="white_20">#FFCCCCCC</color>
+    <color name="white_30">#FFB3B3B3</color>
+    <color name="white_40">#FF999999</color>
+    <color name="white_50">#FF808080</color>
+    <color name="stroke_color">@drawable/stroke_color</color>
+    <color name="transparent">#00000000</color>
+    <color name="red">#FFFF0000</color>
+
+    <color name="tfe_color_primary">#ffa800</color>
+    <color name="tfe_color_primary_dark">#000000</color>
+    <color name="tfe_color_accent">#425066</color>
+
+    <color name="tfe_semi_transparent">#66000000</color>
+
+    <color name="solarized_red">#dc322f</color>
+    <color name="solarized_blue">#268bd2</color>
+
+    <color name="semi_transparent">#80FFFFFF</color>
+    <color name="translucent_blue">#BF0073FF</color>
+
+    <color name="light_green">#ff90ee90</color>
+    <color name="light_red">#ffee9090</color>
+
+    <color name="ap_black">#000</color>
+    <color name="ap_charcoal">#111</color>
+    <color name="ap_gray">#888</color>
+    <color name="ap_transparent">#00000000</color>
+    <color name="ap_white">#FFF</color>
+    <color name="off_white">#EEE</color>
+</resources>

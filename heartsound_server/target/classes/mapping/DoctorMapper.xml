@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shu.dao.DoctorMapper">
+  <resultMap id="BaseResultMap" type="cn.shu.dataobject.Doctor">
+    <id column="doctor_id" jdbcType="INTEGER" property="doctorId" />
+    <result column="doctor_name" jdbcType="VARCHAR" property="doctorName" />
+    <result column="hospital_id" jdbcType="INTEGER" property="hospitalId" />
+    <result column="office_location" jdbcType="VARCHAR" property="officeLocation" />
+    <result column="office_tel" jdbcType="VARCHAR" property="officeTel" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+  </resultMap>
+  <resultMap id="DoctorDetailMap" type="cn.shu.dataobject.DoctorDetail">
+    <id column="doctor_id" jdbcType="INTEGER" property="doctorId" />
+    <result column="doctor_name" jdbcType="VARCHAR" property="name" />
+    <result column="hospital_id" jdbcType="INTEGER" property="hospitalId" />
+    <result column="office_location" jdbcType="VARCHAR" property="officeLocation" />
+    <result column="office_tel" jdbcType="VARCHAR" property="officeTel" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    doctor_id, doctor_name, hospital_id, office_location, office_tel, title
+  </sql>
+  <sql id="Doctor_Detail_List">
+    doctor_id, doctor_name, doctor.hospital_id, office_location, office_tel, title, photo, hospital_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="cn.shu.dataobject.Doctor">
+    insert into doctor (doctor_id, doctor_name, hospital_id, 
+      office_location, office_tel, title
+      )
+    values (#{doctorId,jdbcType=INTEGER}, #{doctorName,jdbcType=VARCHAR}, #{hospitalId,jdbcType=INTEGER}, 
+      #{officeLocation,jdbcType=VARCHAR}, #{officeTel,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.shu.dataobject.Doctor">
+    insert into doctor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="doctorId != null">
+        doctor_id,
+      </if>
+      <if test="doctorName != null">
+        doctor_name,
+      </if>
+      <if test="hospitalId != null">
+        hospital_id,
+      </if>
+      <if test="officeLocation != null">
+        office_location,
+      </if>
+      <if test="officeTel != null">
+        office_tel,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="doctorName != null">
+        #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalId != null">
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="officeLocation != null">
+        #{officeLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="officeTel != null">
+        #{officeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.shu.dataobject.Doctor">
+    update doctor
+    <set>
+      <if test="doctorName != null">
+        doctor_name = #{doctorName,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalId != null">
+        hospital_id = #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="officeLocation != null">
+        office_location = #{officeLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="officeTel != null">
+        office_tel = #{officeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.shu.dataobject.Doctor">
+    update doctor
+    set doctor_name = #{doctorName,jdbcType=VARCHAR},
+      hospital_id = #{hospitalId,jdbcType=INTEGER},
+      office_location = #{officeLocation,jdbcType=VARCHAR},
+      office_tel = #{officeTel,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR}
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getDoctorList" resultMap="DoctorDetailMap">
+    select
+    *
+    from doctor, hospital, user where doctor.hospital_id = hospital.hospital_id and doctor.doctor_id = user.user_id
+    order by doctor_id ASC;
+  </select>
+
+  <select id="getDoctorDetail" resultMap="DoctorDetailMap">
+    select
+    *
+    from doctor, hospital, user where doctor.hospital_id = hospital.hospital_id and doctor.doctor_id = user.user_id and doctor_id = #{doctorId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shu.dao.HospitalMapper">
+  <resultMap id="BaseResultMap" type="cn.shu.dataobject.Hospital">
+    <id column="hospital_id" jdbcType="INTEGER" property="hospitalId" />
+    <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="hospital_tel" jdbcType="VARCHAR" property="hospitalTel" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    hospital_id, hospital_name, address, hospital_tel, detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hospital
+    where hospital_id = #{hospitalId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="cn.shu.dataobject.Hospital">
+    insert into hospital (hospital_id, hospital_name, address, 
+      hospital_tel, detail)
+    values (#{hospitalId,jdbcType=INTEGER}, #{hospitalName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{hospitalTel,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.shu.dataobject.Hospital">
+    insert into hospital
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hospitalId != null">
+        hospital_id,
+      </if>
+      <if test="hospitalName != null">
+        hospital_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="hospitalTel != null">
+        hospital_tel,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hospitalId != null">
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalName != null">
+        #{hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalTel != null">
+        #{hospitalTel,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.shu.dataobject.Hospital">
+    update hospital
+    <set>
+      <if test="hospitalName != null">
+        hospital_name = #{hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalTel != null">
+        hospital_tel = #{hospitalTel,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hospital_id = #{hospitalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.shu.dataobject.Hospital">
+    update hospital
+    set hospital_name = #{hospitalName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      hospital_tel = #{hospitalTel,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR}
+    where hospital_id = #{hospitalId,jdbcType=INTEGER}
+  </update>
+  <select id="getHospitalList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hospital order by hospital_id ASC;
+  </select>
+
+</mapper>

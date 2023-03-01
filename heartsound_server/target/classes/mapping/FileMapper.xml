@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shu.dao.FileMapper">
+  <resultMap id="BaseResultMap" type="cn.shu.dataobject.File">
+    <id column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="patient_id" jdbcType="INTEGER" property="patientId" />
+    <result column="rate" jdbcType="VARCHAR" property="rate" />
+    <result column="ai_result" jdbcType="VARCHAR" property="aiResult" />
+    <result column="doc_result" jdbcType="VARCHAR" property="docResult" />
+    <result column="audio_url" jdbcType="VARCHAR" property="audioUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    file_id, date, patient_id, rate, ai_result, doc_result, audio_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="cn.shu.dataobject.File">
+    insert into file (file_id, date, patient_id, 
+      rate, ai_result, doc_result, 
+      audio_url)
+    values (#{fileId,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{patientId,jdbcType=INTEGER}, 
+      #{rate,jdbcType=VARCHAR}, #{aiResult,jdbcType=VARCHAR}, #{docResult,jdbcType=VARCHAR}, 
+      #{audioUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.shu.dataobject.File">
+    insert into file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        file_id,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="patientId != null">
+        patient_id,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="aiResult != null">
+        ai_result,
+      </if>
+      <if test="docResult != null">
+        doc_result,
+      </if>
+      <if test="audioUrl != null">
+        audio_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="aiResult != null">
+        #{aiResult,jdbcType=VARCHAR},
+      </if>
+      <if test="docResult != null">
+        #{docResult,jdbcType=VARCHAR},
+      </if>
+      <if test="audioUrl != null">
+        #{audioUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.shu.dataobject.File">
+    update file
+    <set>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patientId != null">
+        patient_id = #{patientId,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="aiResult != null">
+        ai_result = #{aiResult,jdbcType=VARCHAR},
+      </if>
+      <if test="docResult != null">
+        doc_result = #{docResult,jdbcType=VARCHAR},
+      </if>
+      <if test="audioUrl != null">
+        audio_url = #{audioUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.shu.dataobject.File">
+    update file
+    set date = #{date,jdbcType=TIMESTAMP},
+      patient_id = #{patientId,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=VARCHAR},
+      ai_result = #{aiResult,jdbcType=VARCHAR},
+      doc_result = #{docResult,jdbcType=VARCHAR},
+      audio_url = #{audioUrl,jdbcType=VARCHAR}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getFileList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from file
+    where patient_id = #{patientId,jdbcType=INTEGER}
+    order by file_id DESC;
+
+  </select>
+
+  <select id="getLastFile" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from file
+    where patient_id = #{patientId,jdbcType=INTEGER}
+    order by file_id DESC
+    limit 1;
+  </select>
+</mapper>
